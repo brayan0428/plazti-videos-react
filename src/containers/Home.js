@@ -1,29 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Search from '../components/Search'
 import Categories from '../components/Categories'
 import Carousel from '../components/Carousel'
 import CarouselItem from '../components/CarouselItem'
 
 import '../assets/styles/App.css'
+import { connect } from 'react-redux'
 
-const Home = () => {
-  const [videos, setVideos] = useState([])
-
-  useEffect(() => {
-    fetch('http://localhost:3001/initialState')
-      .then(response => response.json())
-      .then(data => setVideos(data))
-  }, [])
-
+const Home = ({myList,trends,originals}) => {
   return (
     <>
       <Search />
       {
-        videos.mylist && videos.mylist.length > 0 &&
+        myList.length > 0 &&
         <Categories title="Mi Lista">
           <Carousel>
           {
-            videos.mylist.map(video => (
+            myList.map(video => (
               <CarouselItem key={video.id} {...video} />
             ))
           }
@@ -33,7 +26,7 @@ const Home = () => {
       <Categories title="Tendencias">
         <Carousel>
           {
-            videos.trends && videos.trends.map(video => (
+            trends.map(video => (
               <CarouselItem key={video.id} {...video} />
             ))
           }
@@ -42,7 +35,7 @@ const Home = () => {
       <Categories title="Originales de Platzi Video">
         <Carousel>
           {
-            videos.originals && videos.originals.map(video => (
+            originals.map(video => (
               <CarouselItem key={video.id} {...video} />
             ))
           }
@@ -52,4 +45,11 @@ const Home = () => {
   )
 }
 
-export default Home
+const mapStateToProps = (state) => {
+  return {
+    myList: state.myList,
+    trends: state.trends,
+    originals:state.originals
+  }
+}
+export default connect(mapStateToProps,null)(Home)
