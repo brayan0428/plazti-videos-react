@@ -17,7 +17,7 @@ const Home = ({myList,trends,originals}) => {
           <Carousel>
           {
             myList.map(video => (
-              <CarouselItem key={video.id} {...video} />
+              <CarouselItem key={video.id} {...video} isList />
             ))
           }
           </Carousel>
