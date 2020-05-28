@@ -19,6 +19,11 @@ const reducer = (state,action) => {
         ...state,
         user: action.payload
       }
+    case 'REQUEST_LOGOUT':
+      return {
+        ...state,
+        user: action.payload
+      }
     default:
       return state
   }
