@@ -1,32 +1,59 @@
-import React from 'react'
+import React, {useState} from 'react'
 import googleIcon from '../assets/static/google-icon.png'
 import twitterIcon from '../assets/static/twitter-icon.png'
 import '../assets/styles/components/Login.css'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { requestLogin } from '../actions'
 
-const Login = () => (
-  <section className="login">
-    <section className="login__container">
-      <h2>Inicia sesión</h2>
-      <form className="login__container--form">
-        <input className="input" type="text" placeholder="Correo" />
-        <input className="input" type="password" placeholder="Contraseña" />
-        <button className="button">Iniciar sesión</button>
-        <div className="login__container--remember-me">
-          <label>
-            <input type="checkbox" id="cbox1" value="first_checkbox" />Recuérdame
-        </label>
-          <a href="/">Olvidé mi contraseña</a>
-        </div>
-      </form>
-      <section className="login__container--social-media">
-        <div><img src={googleIcon} alt="" /> Inicia sesión con Google</div>
-        <div><img src={twitterIcon} alt="" /> Inicia sesión con Twitter</div>
+const Login = (props) => { 
+
+  const [form, setValues] = useState({
+    email: ''
+  })
+
+  const handleValues = e => {
+    setValues({
+      ...form,
+      [e.target.name] : e.target.value
+    })
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    props.requestLogin(form)
+    props.history.push('/')
+  }
+
+  return (
+    <section className="login">
+      <section className="login__container">
+        <h2>Inicia sesión</h2>
+        <form className="login__container--form" onSubmit={handleSubmit}>
+          <input className="input" type="text" placeholder="Correo" name="email" onChange={handleValues}
+          />
+          <input className="input" type="password" placeholder="Contraseña" />
+          <button className="button">Iniciar sesión</button>
+          <div className="login__container--remember-me">
+            <label>
+              <input type="checkbox" id="cbox1" value="first_checkbox" />Recuérdame
+          </label>
+            <a href="/">Olvidé mi contraseña</a>
+          </div>
+        </form>
+        <section className="login__container--social-media">
+          <div><img src={googleIcon} alt="" /> Inicia sesión con Google</div>
+          <div><img src={twitterIcon} alt="" /> Inicia sesión con Twitter</div>
+        </section>
+        <p className="login__container--register">No tienes ninguna cuenta 
+        <Link to="/register">Regístrate</Link></p>
       </section>
-      <p className="login__container--register">No tienes ninguna cuenta 
-      <Link to="/register">Regístrate</Link></p>
     </section>
-  </section>
-)
+  )
+}
 
-export default Login
+const mapDispatchToProps = () => ({
+  requestLogin
+})
+
+export default connect(null,mapDispatchToProps)(Login)
