@@ -17,3 +17,8 @@ export const requestLogout = payload => ({
     type: 'REQUEST_LOGOUT',
     payload
 })
+
+export const requestRegister = payload => ({
+    type:'REQUEST_REGISTER',
+    payload
+})

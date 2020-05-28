@@ -24,6 +24,11 @@ const reducer = (state,action) => {
         ...state,
         user: action.payload
       }
+    case 'REQUEST_REGISTER':
+        return {
+          ...state,
+          user: action.payload
+        }
     default:
       return state
   }
