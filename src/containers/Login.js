@@ -52,8 +52,8 @@ const Login = (props) => {
   )
 }
 
-const mapDispatchToProps = () => ({
+const mapDispatchToProps = {
   requestLogin
-})
+}
 
 export default connect(null,mapDispatchToProps)(Login)
