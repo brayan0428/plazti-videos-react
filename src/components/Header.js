@@ -10,7 +10,8 @@ const Header = (props) => {
   const {user} = props
   const hasUser = Object.keys(user).length > 0
 
-  const handleLogout = () => {
+  const handleLogout = (e) => {
+    e.preventDefault()
     props.requestLogout({})
   }
   return (
@@ -36,7 +37,7 @@ const Header = (props) => {
           }
           {
             hasUser
-            ? <li><a href="#" onClick={handleLogout}>Cerrar Sesión</a></li>
+            ? <li><a href="/" onClick={handleLogout}>Cerrar Sesión</a></li>
             : <li><Link to="/login">Iniciar Sesión</Link></li>
           }
         </ul>

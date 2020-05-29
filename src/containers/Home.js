@@ -7,8 +7,24 @@ import CarouselItem from '../components/CarouselItem'
 import '../assets/styles/App.css'
 import { connect } from 'react-redux'
 
-const Home = ({myList,trends,originals}) => {
-  return (
+const Home = ({myList,trends,originals,videosFiltered}) => {
+
+  return videosFiltered.length > 0 
+  ? (
+    <>
+      <Search />
+      <Categories title="Videos encontrados">
+          <Carousel>
+          {
+            videosFiltered.map(video => (
+              <CarouselItem key={video.id} {...video} />
+            ))
+          }
+          </Carousel>
+        </Categories>
+    </>
+  )
+  : (
     <>
       <Search />
       {
@@ -49,7 +65,8 @@ const mapStateToProps = (state) => {
   return {
     myList: state.myList,
     trends: state.trends,
-    originals:state.originals
+    originals:state.originals,
+    videosFiltered: state.videosFiltered
   }
 }
 export default connect(mapStateToProps,null)(Home)

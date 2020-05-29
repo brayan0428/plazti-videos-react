@@ -34,6 +34,13 @@ const reducer = (state,action) => {
         ...state,
         playing: state.trends.find(item => item.id === Number(action.payload)) || state.originals.find(item => item.id === Number(action.payload)) || []
       }
+    case 'FILTER_VIDEOS':
+      const filterVideos = action.payload.length > 0 
+      ? state.trends.filter(t => t.title.toLowerCase().includes(action.payload.toLowerCase())).concat(state.originals.filter(t => t.title.toLowerCase().includes(action.payload.toLowerCase()))) : []
+      return {
+        ...state,
+        videosFiltered: [...filterVideos]
+      }
     default:
       return state
   }
