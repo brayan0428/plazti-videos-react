@@ -3,9 +3,12 @@ import '../assets/styles/components/Footer.css'
 
 const Footer = () => (
   <footer className="footer">
-    <a href="/">Terminos de uso</a>
-    <a href="/">Declaración de privacidad</a>
-    <a href="/">Centro de ayuda</a>
+    <div>
+      <a href="/">Terminos de uso</a>
+      <a href="/">Declaración de privacidad</a>
+      <a href="/">Centro de ayuda</a>
+    </div>
+    <p>Realizado por Brayan Llanos</p>
   </footer>
 )
 
